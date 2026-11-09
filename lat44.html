@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penentuan Huruf Mutu</title>
+
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+
+    <style>
+        body {
+            background: #f1f5f9;
+            font-family: Arial, sans-serif;
+            min-height: 100vh;
+        }
+
+        .kartu {
+            max-width: 450px;
+            border: none;
+            border-radius: 18px;
+        }
+
+        #hasil {
+            display: none;
+            margin-top: 20px;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            color: white;
+        }
+
+        .huruf {
+            font-size: 60px;
+            font-weight: bold;
+        }
+
+        .mutu-A { background-color: #198754; }
+        .mutu-B { background-color: #0d6efd; }
+        .mutu-C { background-color: #ffc107; color: #212529 !important; }
+        .mutu-D { background-color: #fd7e14; }
+        .mutu-E { background-color: #dc3545; }
+
+        #pesanError {
+            color: #dc3545;
+            margin-top: 12px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container py-5">
+        <div class="card kartu shadow mx-auto p-4">
+
+            <h3 class="text-center text-primary mb-4">
+                Penentuan Huruf Mutu
+            </h3>
+
+            <form id="formNilai">
+
+                <div class="mb-3">
+                    <label for="nama" class="form-label">
+                        Nama Mahasiswa
+                    </label>
+                    <input type="text" id="nama"
+                           class="form-control"
+                           placeholder="Masukkan nama"
+                           required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="nilai" class="form-label">
+                        Nilai Akhir
+                    </label>
+                    <input type="number" id="nilai"
+                           class="form-control"
+                           placeholder="Masukkan nilai 0–100"
+                           step="any"
+                           required>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100">
+                    Hitung Huruf Mutu
+                </button>
+
+            </form>
+
+            <p id="pesanError" role="alert"></p>
+
+            <div id="hasil" aria-live="polite">
+                <div id="namaHasil"></div>
+                <div id="hurufMutu" class="huruf"></div>
+                <div id="nilaiHasil"></div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        const form = document.getElementById("formNilai");
+        const inputNama = document.getElementById("nama");
+        const inputNilai = document.getElementById("nilai");
+        const pesanError = document.getElementById("pesanError");
+        const hasil = document.getElementById("hasil");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const nama = inputNama.value.trim();
+            const teksNilai = inputNilai.value.trim();
+
+            pesanError.textContent = "";
+            hasil.style.display = "none";
+
+            // Validasi nama
+            if (nama === "") {
+                pesanError.textContent =
+                    "Error: nama mahasiswa harus diisi.";
+                return;
+            }
+
+            // Validasi angka
+            if (teksNilai === "" || !Number.isFinite(Number(teksNilai))) {
+                pesanError.textContent =
+                    "Error: nilai harus berupa angka.";
+                return;
+            }
+
+            const nilai = Number(teksNilai);
+
+            // Validasi nilai negatif
+            if (nilai < 0) {
+                pesanError.textContent =
+                    "Error: nilai tidak boleh negatif.";
+                return;
+            }
+
+            // Validasi nilai lebih dari 100
+            if (nilai > 100) {
+                pesanError.textContent =
+                    "Error: nilai tidak boleh melebihi 100.";
+                return;
+            }
+
+            // Menentukan huruf mutu
+            let huruf;
+
+            if (nilai < 49.5) {
+                huruf = "E";
+            } else if (nilai < 59.5) {
+                huruf = "D";
+            } else if (nilai < 74.5) {
+                huruf = "C";
+            } else if (nilai < 84.5) {
+                huruf = "B";
+            } else {
+                huruf = "A";
+            }
+
+            // Menampilkan hasil
+            hasil.className = "mutu-" + huruf;
+            hasil.style.display = "block";
+
+            document.getElementById("namaHasil").textContent =
+                "Nama: " + nama;
+
+            document.getElementById("hurufMutu").textContent = huruf;
+
+            document.getElementById("nilaiHasil").textContent =
+                "Nilai akhir: " + nilai;
+        });
+    </script>
+
+</body>
+</html>
