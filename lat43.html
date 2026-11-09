@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Latihan Algoritma</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #eaf6fc;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 20px auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 12px #00000015;
+        }
+
+        h2 {
+            color: #1870f5;
+        }
+
+        input, button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 10px;
+            box-sizing: border-box;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        input {
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #1870f5;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0758d5;
+        }
+
+        .hasil {
+            background: #eaf6fc;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            overflow-wrap: anywhere;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <div class="card">
+        <h2>1. Hitung Fibonacci</h2>
+        <p>Masukkan nomor suku yang ingin dihitung.</p>
+
+        <label for="n">Nomor suku (N):</label>
+        <input type="number" id="n" value="20" min="1" max="1000">
+
+        <button onclick="hitungFibonacci()">
+            Hitung Fibonacci
+        </button>
+
+        <div class="hasil" id="hasilFib">
+            Suku ke-20 = 4181
+        </div>
+    </div>
+
+    <div class="card">
+        <h2>2. Penjumlahan Dua Bilangan</h2>
+
+        <label for="angka1">Bilangan pertama:</label>
+        <input type="number" id="angka1" placeholder="Masukkan angka pertama">
+
+        <label for="angka2">Bilangan kedua:</label>
+        <input type="number" id="angka2" placeholder="Masukkan angka kedua">
+
+        <button onclick="jumlahkan()">
+            Hitung Jumlah
+        </button>
+
+        <div class="hasil" id="hasilJumlah">
+            Hasil penjumlahan akan muncul di sini.
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Fungsi menghitung suku Fibonacci ke-N
+    function hitungFibonacci() {
+        const n = Number(document.getElementById("n").value);
+        const hasil = document.getElementById("hasilFib");
+
+        if (!Number.isInteger(n) || n < 1 || n > 1000) {
+            hasil.textContent =
+                "Masukkan nomor suku berupa bilangan bulat 1–1000.";
+            return;
+        }
+
+        let a = 0;
+        let b = 1;
+
+        if (n === 1) {
+            hasil.textContent = "Suku ke-1 = 0";
+            return;
+        }
+
+        for (let i = 2; i < n; i++) {
+            const c = a + b;
+            a = b;
+            b = c;
+        }
+
+        hasil.textContent = "Suku ke-" + n + " = " + b;
+    }
+
+    // Fungsi menjumlahkan dua bilangan
+    function jumlahkan() {
+        const input1 = document.getElementById("angka1").value;
+        const input2 = document.getElementById("angka2").value;
+        const hasil = document.getElementById("hasilJumlah");
+
+        if (input1 === "" || input2 === "") {
+            hasil.textContent = "Silakan isi kedua bilangan.";
+            return;
+        }
+
+        const a = Number(input1);
+        const b = Number(input2);
+        const total = a + b;
+
+        hasil.textContent = a + " + " + b + " = " + total;
+    }
+</script>
+
+</body>
+</html>
