@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Biodata dan Scientific Calculator</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    background: linear-gradient(135deg, #0f172a, #1d4ed8);
+    min-height: 100vh;
+    font-family: Arial, sans-serif;
+    padding-bottom: 40px;
+}
+
+.navbar { background: #0f172a; }
+
+.biodata-card {
+    max-width: 450px;
+    margin: 35px auto;
+    background: white;
+    color: #172554;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px #0004;
+}
+
+.profile-header {
+    background: #1d4ed8;
+    color: white;
+    text-align: center;
+    padding: 28px 15px;
+}
+
+.avatar {
+    width: 85px;
+    height: 85px;
+    border-radius: 50%;
+    background: white;
+    color: #1d4ed8;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 40px;
+    font-weight: bold;
+    margin: auto auto 15px;
+}
+
+.profile-body {
+    padding: 25px;
+    text-align: center;
+}
+
+.profile-footer {
+    background: #f1f5f9;
+    text-align: center;
+    padding: 14px;
+    color: #64748b;
+}
+
+.nav-links a {
+    display: inline-block;
+    background: #1d4ed8;
+    color: white;
+    text-decoration: none;
+    padding: 8px 12px;
+    margin: 4px;
+    border-radius: 7px;
+    font-size: 13px;
+}
+
+.calculator {
+    max-width: 520px;
+    margin: 30px auto;
+    background: #202938;
+    color: white;
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 12px 35px #0005;
+}
+
+.display {
+    background: #dce9d4;
+    color: #15251a;
+    border-radius: 10px;
+    padding: 14px;
+    margin-bottom: 15px;
+    min-height: 105px;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+#expression {
+    font-size: 14px;
+    min-height: 22px;
+    color: #52634a;
+}
+
+#screen {
+    font-size: 30px;
+    font-weight: bold;
+    min-height: 40px;
+}
+
+#angleMode {
+    font-size: 12px;
+    color: #52634a;
+}
+
+.keypad {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 8px;
+}
+
+.key {
+    border: none;
+    border-radius: 9px;
+    min-height: 48px;
+    font-size: 15px;
+    font-weight: bold;
+    background: #354153;
+    color: white;
+    cursor: pointer;
+}
+
+.key:hover { filter: brightness(1.2); }
+
+.key.function { background: #46566f; }
+.key.operator { background: #1767a5; }
+.key.danger { background: #a83c49; }
+.key.equal {
+    background: #2563eb;
+    grid-column: span 2;
+}
+
+.key.number { background: #303b4d; }
+
+.section-title {
+    font-size: 13px;
+    color: #b9c6d8;
+    margin: 15px 0 8px;
+    font-weight: bold;
+}
+
+.history {
+    background: #172131;
+    border-radius: 10px;
+    padding: 12px;
+    margin-top: 18px;
+    max-height: 180px;
+    overflow-y: auto;
+}
+
+.history-item {
+    padding: 8px;
+    border-bottom: 1px solid #39475b;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.history-item:last-child { border-bottom: none; }
+
+.history-item button {
+    margin-top: 5px;
+    font-size: 11px;
+}
+
+@media(max-width: 400px) {
+    .calculator { padding: 12px; }
+    .keypad { gap: 5px; }
+    .key { min-height: 43px; font-size: 13px; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-dark">
+    <div class="container">
+        <span class="navbar-brand fw-bold">
+            BIODATA MAHASISWA
+        </span>
+    </div>
+</nav>
+
+<div class="container">
+
+<!-- BIODATA -->
+<div class="biodata-card">
+    <div class="profile-header">
+        <div class="avatar">R</div>
+        <h3 class="fw-bold">Rendi Hestu Nugraha</h3>
+        <p class="mb-0">Mahasiswa</p>
+    </div>
+
+    <div class="profile-body">
+        <h6 class="fw-bold">NIM</h6>
+        <p>262302010</p>
+
+        <h6 class="fw-bold">Program Studi</h6>
+        <p>Komputerisasi Akuntansi</p>
+
+        <h6 class="fw-bold">Semester</h6>
+        <p>1</p>
+
+        <hr>
+        <h6 class="fw-bold">Navigasi Materi</h6>
+        <div class="nav-links">
+            <a href="lat41.html">Latihan 41</a>
+            <a href="lat42.html">Latihan 42</a>
+            <a href="lat43.html">Latihan 43</a>
+            <a href="lat44.html">Latihan 44</a>
+        </div>
+    </div>
+
+    <div class="profile-footer">
+        ©️ 2026 - Biodata Mahasiswa
+    </div>
+</div>
+
+<!-- SCIENTIFIC CALCULATOR -->
+<div class="calculator">
+
+    <h4 class="text-center fw-bold mb-3">
+        SCIENTIFIC CALCULATOR
+    </h4>
+
+    <div class="display">
+        <div id="expression"></div>
+        <div id="screen">0</div>
+        <div id="angleMode">DEG</div>
+    </div>
+
+    <div class="d-flex gap-2 mb-3">
+        <button class="btn btn-outline-light flex-fill"
+                onclick="toggleAngle()">DEG / RAD</button>
+        <button class="btn btn-outline-light flex-fill"
+                onclick="copyResult()">SALIN HASIL</button>
+    </div>
+
+    <div class="section-title">FUNGSI ILMIAH</div>
+
+    <div class="keypad">
+
+        <button class="key function" onclick="scientific('sin')">sin</button>
+        <button class="key function" onclick="scientific('cos')">cos</button>
+        <button class="key function" onclick="scientific('tan')">tan</button>
+        <button class="key function" onclick="scientific('asin')">sin⁻¹</button>
+        <button class="key function" onclick="scientific('acos')">cos⁻¹</button>
+
+        <button class="key function" onclick="scientific('atan')">tan⁻¹</button>
+        <button class="key function" onclick="scientific('sqrt')">√</button>
+        <button class="key function" onclick="scientific('cbrt')">∛</button>
+        <button class="key function" onclick="scientific('square')">x²</button>
+        <button class="key function" onclick="scientific('cube')">x³</button>
+
+        <button class="key function" onclick="scientific('log')">log</button>
+        <button class="key function" onclick="scientific('ln')">ln</button>
+        <button class="key function" onclick="scientific('factorial')">x!</button>
+        <button class="key function" onclick="insert('Math.PI')">π</button>
+        <button class="key function" onclick="insert('Math.E')">e</button>
+
+    </div>
+
+    <div class="section-title">OPERATOR PERHITUNGAN</div>
+
+    <div class="keypad">
+
+        <button class="key danger" onclick="clearAll()">AC</button>
+        <button class="key danger" onclick="backspace()">DEL</button>
+        <button class="key function" onclick="insert('(')">(</button>
+        <button class="key function" onclick="insert(')')">)</button>
+        <button class="key operator" onclick="insert('/')">÷</button>
+
+        <button class="key number" onclick="insert('7')">7</button>
+        <button class="key number" onclick="insert('8')">8</button>
+        <button class="key number" onclick="insert('9')">9</button>
+        <button class="key operator" onclick="insert('%')">mod</button>
+        <button class="key operator" onclick="insert('*')">×</button>
+
+        <button class="key number" onclick="insert('4')">4</button>
+        <button class="key number" onclick="insert('5')">5</button>
+        <button class="key number" onclick="insert('6')">6</button>
+        <button class="key operator" onclick="insert('**')">xʸ</button>
+        <button class="key operator" onclick="insert('-')">−</button>
+
+        <button class="key number" onclick="insert('1')">1</button>
+        <button class="key number" onclick="insert('2')">2</button>
+        <button class="key number" onclick="insert('3')">3</button>
+        <button class="key operator" onclick="insert('/')">÷</button>
+        <button class="key operator" onclick="insert('+')">+</button>
+
+        <button class="key number" onclick="insert('0')">0</button>
+        <button class="key number" onclick="insert('.')">.</button>
+        <button class="key function" onclick="insert('Ans')">Ans</button>
+        <button class="key equal" onclick="calculate()">=</button>
+
+    </div>
+
+    <div class="section-title">OPERATOR PERBANDINGAN</div>
+
+    <div class="keypad">
+        <button class="key operator" onclick="insert('>')">&gt;</button>
+        <button class="key operator" onclick="insert('<')">&lt;</button>
+        <button class="key operator" onclick="insert('>=')">&gt;=</button>
+        <button class="key operator" onclick="insert('<=')">&lt;=</button>
+        <button class="key operator" onclick="insert('==')">==</button>
+
+        <button class="key operator" onclick="insert('===')">===</button>
+        <button class="key operator" onclick="insert('!=')">!=</button>
+        <button class="key operator" onclick="insert('!==')">!==</button>
+        <button class="key function" onclick="insert('!')">!</button>
+        <button class="key function" onclick="insert('Math.PI')">π</button>
+    </div>
+
+    <div class="history">
+        <div class="d-flex justify-content-between align-items-center">
+            <strong>Riwayat Perhitungan</strong>
+            <button class="btn btn-sm btn-danger"
+                    onclick="clearHistory()">Hapus</button>
+        </div>
+        <div id="historyList" class="mt-2">
+            <small>Belum ada riwayat.</small>
+        </div>
+    </div>
+
+</div>
+</div>
+
+<script>
+let expression = "";
+let answer = 0;
+let angle = "DEG";
+let history = [];
+
+const screen = document.getElementById("screen");
+const expressionDisplay = document.getElementById("expression");
+const angleDisplay = document.getElementById("angleMode");
+
+function updateDisplay() {
+    screen.textContent = expression || "0";
+    expressionDisplay.textContent = "";
+    angleDisplay.textContent = angle;
+}
+
+function insert(value) {
+    if (expression === "Error") expression = "";
+
+    if (value === "Math.PI") value = "π";
+    if (value === "Math.E") value = "e";
+
+    expression += value;
+    updateDisplay();
+}
+
+function clearAll() {
+    expression = "";
+    updateDisplay();
+}
+
+function backspace() {
+    expression = expression.slice(0, -1);
+    updateDisplay();
+}
+
+function toggleAngle() {
+    angle = angle === "DEG" ? "RAD" : "DEG";
+    updateDisplay();
+}
+
+function toRadians(x) {
+    return angle === "DEG" ? x * Math.PI / 180 : x;
+}
+
+function fromRadians(x) {
+    return angle === "DEG" ? x * 180 / Math.PI : x;
+}
+
+function factorial(n) {
+    if (!Number.isInteger(n) || n < 0 || n > 170) {
+        throw new Error("Faktorial hanya untuk bilangan bulat 0–170");
+    }
+    let result = 1;
+    for (let i = 2; i <= n; i++) result *= i;
+    return result;
+}
+
+// Mengubah ekspresi fungsi kalkulator menjadi JavaScript.
+function prepareExpression(source) {
+    let s = source;
+
+    // Konstanta dan jawaban terakhir
+    s = s.replace(/π/g, "Math.PI");
+    s = s.replace(/(^|[^A-Za-z])e(?![A-Za-z])/g, "$1Math.E");
+    s = s.replace(/\bAns\b/g, "(" + answer + ")");
+
+    // Fungsi trigonometri dan matematika
+    const functions = {
+        sin: x => Math.sin(toRadians(x)),
+        cos: x => Math.cos(toRadians(x)),
+        tan: x => Math.tan(toRadians(x)),
+        asin: x => fromRadians(Math.asin(x)),
+        acos: x => fromRadians(Math.acos(x)),
+        atan: x => fromRadians(Math.atan(x)),
+        sqrt: x => Math.sqrt(x),
+        cbrt: x => Math.cbrt(x),
+        log: x => Math.log10(x),
+        ln: x => Math.log(x),
+        factorial: x => factorial(x)
+    };
+
+    for (const [name, fn] of Object.entries(functions)) {
+        const regex = new RegExp("\\b" + name + "\\(", "g");
+        s = s.replace(regex, "functions." + name + "(");
+    }
+
+    // Fungsi x² dan x³ melalui tombol scientific.
+    s = s.replace(/\^/g, "**");
+
+    // Faktorial postfix: 5! menjadi factorial(5)
+    s = s.replace(/(\d+(?:\.\d+)?|\([^()]*\))!/g,
+        "functions.factorial($1)");
+
+    return s;
+}
+
+// Evaluasi aman: hanya izinkan karakter dan fungsi kalkulator.
+function calculateExpression(source) {
+    let js = prepareExpression(source);
+
+    const allowed = /^[0-9+\-*/%().,!<>=\sA-Za-z_]*$/;
+
+    if (!allowed.test(js)) {
+        throw new Error("Ekspresi tidak valid");
+    }
+
+    const functions = {
+        sin: x => Math.sin(toRadians(x)),
+        cos: x => Math.cos(toRadians(x)),
+        tan: x => Math.tan(toRadians(x)),
+        asin: x => fromRadians(Math.asin(x)),
+        acos: x => fromRadians(Math.acos(x)),
+        atan: x => fromRadians(Math.atan(x)),
+        sqrt: x => Math.sqrt(x),
+        cbrt: x => Math.cbrt(x),
+        log: x => Math.log10(x),
+        ln: x => Math.log(x),
+        factorial: x => factorial(x)
+    };
+
+    // Nama yang diizinkan setelah penggantian.
+    const names = ["Math", "PI", "E", "functions",
+                   "sin", "cos", "tan", "asin", "acos",
+                   "atan", "sqrt", "cbrt", "log", "ln",
+                   "factorial"];
+
+    const identifiers = js.match(/[A-Za-z_]+/g) || [];
+    for (const id of identifiers) {
+        if (!names.includes(id)) {
+            throw new Error("Fungsi tidak dikenal: " + id);
+        }
+    }
+
+    // Hanya ekspresi matematika yang telah divalidasi.
+    return Function("functions", '"use strict"; return (' + js + ')')(functions);
+}
+
+function calculate() {
+    if (!expression) return;
+
+    try {
+        const result = calculateExpression(expression);
+
+        if (typeof result === "number" && !Number.isFinite(result)) {
+            throw new Error("Hasil tidak terdefinisi");
+        }
+
+        const oldExpression = expression;
+        answer = result;
+        expression = String(result);
+
+        screen.textContent = expression;
+        expressionDisplay.textContent = oldExpression + " =";
+
+        addHistory(oldExpression, result);
+    } catch (error) {
+        screen.textContent = "Error";
+        expressionDisplay.textContent = error.message;
+        expression = "";
+    }
+}
+
+function scientific(name) {
+    if (!expression) return;
+
+    const value = expression;
+
+    const functions = {
+        sin: "sin(",
+        cos: "cos(",
+        tan: "tan(",
+        asin: "asin(",
+        acos: "acos(",
+        atan: "atan(",
+        sqrt: "sqrt(",
+        cbrt: "cbrt(",
+        log: "log(",
+        ln: "ln("
+    };
+
+    if (name === "square") expression = "(" + value + ")**2";
+    else if (name === "cube") expression = "(" + value + ")**3";
+    else if (name === "factorial") expression = "(" + value + ")!";
+    else expression = functions[name] + value + ")";
+
+    updateDisplay();
+}
+
+function addHistory(rumus, result) {
+    history.unshift({
+        rumus: rumus,
+        result: String(result)
+    });
+
+    if (history.length > 20) history.pop();
+    renderHistory();
+}
+
+function renderHistory() {
+    const list = document.getElementById("historyList");
+    list.innerHTML = "";
+
+    if (!history.length) {
+        list.innerHTML = "<small>Belum ada riwayat.</small>";
+        return;
+    }
+
+    history.forEach(item => {
+        const div = document.createElement("div");
+        div
